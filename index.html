@@ -58,7 +58,11 @@
   </head>
   <body>
     <div id="applixir_vanishing_div" hidden>
-      <iframe id="applixir_parent" allow="autoplay" allowscripts></iframe>
+      <iframe
+        id="applixir_parent"
+        allow="autoplay"
+        sandbox="allow-scripts"
+      ></iframe>
     </div>
     <input type="button" value="press to invoke" onclick="watchit()" />
     <script type="text/javascript">
