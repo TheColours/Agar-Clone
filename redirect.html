@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="TemplateData/favicon.ico" type="image/x-icon" />
+    <title>Redirect</title>
+  </head>
+  <body>
+    The window will automatically close.
+  </body>
+  <script defer>
+    window.addEventListener("DOMContentLoaded", function () {
+      var currentURL = window.location.href;
+      var startIndex;
+      var endindex;
+      var message;
+      var Iserror = false;
+
+      var Type = currentURL
+        .substring(
+          currentURL.indexOf("state=") + "state=".length,
+          currentURL.indexOf("-TheColors")
+        )
+        .toString();
+      switch (Type) {
+        case "Google":
+          startIndex =
+            currentURL.indexOf("access_token=") + "access_token=".length;
+          endindex = currentURL.indexOf("&token_type");
+          message = currentURL.substring(startIndex, endindex);
+          break;
+        case "discord":
+          startIndex =
+            currentURL.indexOf("access_token=") + "access_token=".length;
+          endindex = currentURL.indexOf("&expires_in");
+          message = currentURL.substring(startIndex, endindex);
+          break;
+
+        case "Microsoft":
+          startIndex = currentURL.indexOf("code=") + "code=".length;
+          endindex = currentURL.indexOf("&state");
+          message = currentURL.substring(startIndex, endindex);
+          break;
+        default:
+          Iserror = true;
+          break;
+      }
+      if (Iserror == false) {
+        window.opener.postMessage("(" + Type + ")" + message, "*");
+        window.close();
+      } else {
+        console.log("not found state");
+      }
+    });
+  </script>
+</html>
