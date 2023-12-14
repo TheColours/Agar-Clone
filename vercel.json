@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/Build/*.data.br",
+      "source": "/Build/Game.data.br",
       "headers": [
         {
           "key": "Content-Encoding",
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "source": "/Build/*.wasm.br",
+      "source": "/Build/Game.wasm.br",
       "headers": [
         {
           "key": "Content-Encoding",
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "source": "/Build/*.framework.js.br",
+      "source": "/Build/Game.framework.js.br",
       "headers": [
         {
           "key": "Content-Encoding",
