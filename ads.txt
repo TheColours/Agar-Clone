@@ -1,4 +1,4 @@
-google.com, pub-8832461201977627, DIRECT, f08c47fec0942fa0
+google.com, pub-9871897611748477, RESELLER, f08c47fec0942fa0
 facebook.com, pub-8637246282765423, RESELLER, c3e20eee3f780d68
 appnexus.com, 10080, RESELLER, f5ab79cb980f11d1
 advertising.com, 7126, RESELLER, e1a5b5b6e3255540
@@ -37,3 +37,6 @@ sonobi.com,eaec54c63f,RESELLER,d1a215d9eb5aee9e
 rhythmone.com,4173858586,RESELLER,a670c89d4a324e47
 Verve.com,15290,RESELLER,0c8f5958fc2d6270
 Media.net, 8CUM8V255, DIRECT
+
+
+Applixir.com - last modified: 09/01/22
