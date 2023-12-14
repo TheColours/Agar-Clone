@@ -89,13 +89,13 @@
         zoneId: 2050, // required: the zone ID from the "Games" page
         accountId: 7691, // optional: your account ID (required for RMS)
         gameId: 8202, // optional: the ID for this game from the "Games"
-        dMode: 1, // 0 for no MD5 checksum, 1 for MD5 checksum (recommended)
+        dMode: 0, // 0 for no MD5 checksum, 1 for MD5 checksum (recommended)
         fallback: 0, // 0 for no fallbacks, 1 will show fallback ads when ads-unavailable
         verbosity: 0,
         endMsg: 0,
         maxAdt: 31,
         btnDelay: 31,
-        vSize: "max",
+        vSize: "1024x768",
         userId: generateUUID(), // required: UUID value for current customer (required for targeted ads - UUID4 recommended) // optional: custom value for RMS - use to provide additional reward information
         adStatusCb: adStatusCallback,
       };
