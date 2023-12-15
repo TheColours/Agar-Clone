@@ -4,6 +4,7 @@ Agar Solo
 
 A simple yet powerful Agar.IO clone built using Unity and powered by Photon Networking
 
+![image](https://github.com/TheColours/Agar-Solo/assets/97489339/be56a8ea-2dbe-4b7a-b3f3-f443ab3d94a9)
 
 
 #### Game Basics
