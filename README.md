@@ -1,4 +1,4 @@
-AGAR SOLO
+Agar Solo
 =============
 
 
