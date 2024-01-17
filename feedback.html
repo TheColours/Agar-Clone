@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Feedback</title>
+    <link rel="icon" href="TemplateData/favicon.ico" type="image/x-icon" />
     <script>
       function handleSubmit(event) {
         event.preventDefault();
@@ -28,7 +29,7 @@
           .then((response) => response.text())
           .then((result) => {
             // Xử lý kết quả từ API
-            window.close();
+            alert("Success!");
           })
           .catch((error) => {
             // Xử lý lỗi
@@ -42,33 +43,33 @@
         if (form.checkValidity()) {
           handleSubmit(event);
         } else {
-          alert("Vui lòng điền đầy đủ thông tin!");
+          alert("Please complete all information!");
         }
       }
     </script>
   </head>
   <body>
-    <h1>Trang Feedback</h1>
+    <h1>Feedback for Agar Solo</h1>
     <form id="feedbackForm">
-      <label for="name">Tên:</label>
+      <label for="name">Name:</label>
       <input type="text" id="name" name="name" required /><br /><br />
 
       <label for="email">Email:</label>
       <input type="email" id="email" name="email" required /><br /><br />
 
-      <label for="subject">Chủ đề:</label>
+      <label for="subject">Topic:</label>
       <select id="subject" name="subject">
-        <option value="Phản hồi chung">Phản hồi chung</option>
-        <option value="Báo lỗi">Báo lỗi</option>
-        <option value="Gợi ý">Gợi ý</option>
-        <option value="Khác">Khác</option></select
+        <option value="General">General</option>
+        <option value="Error">Error</option>
+        <option value="Suggest">Suggest</option>
+        <option value="Other">Other</option></select
       ><br /><br />
 
-      <label for="feedback">Phản hồi:</label><br />
+      <label for="feedback">feedback:</label><br />
       <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea
       ><br /><br />
 
-      <button onclick="validateForm()" type="button">Gửi</button>
+      <button onclick="validateForm()" type="button">Submit</button>
     </form>
   </body>
 </html>
