@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Feedback</title>
+    <script>
+      function handleSubmit(event) {
+        event.preventDefault();
+
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var subject = document.getElementById("subject").value;
+        var feedback = document.getElementById("feedback").value;
+
+        // Dữ liệu cần gửi
+        var data = {
+          Name: name,
+          Email: email,
+          Subject: subject,
+          Feedback: feedback,
+        };
+        fetch("http://thecolors.id.vn/Feedback.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.text())
+          .then((result) => {
+            // Xử lý kết quả từ API
+            window.close();
+          })
+          .catch((error) => {
+            // Xử lý lỗi
+            console.error("Error:", error);
+          });
+      }
+
+      function validateForm() {
+        var form = document.getElementById("feedbackForm");
+
+        if (form.checkValidity()) {
+          handleSubmit(event);
+        } else {
+          alert("Vui lòng điền đầy đủ thông tin!");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Trang Feedback</h1>
+    <form id="feedbackForm">
+      <label for="name">Tên:</label>
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required /><br /><br />
+
+      <label for="subject">Chủ đề:</label>
+      <select id="subject" name="subject">
+        <option value="Phản hồi chung">Phản hồi chung</option>
+        <option value="Báo lỗi">Báo lỗi</option>
+        <option value="Gợi ý">Gợi ý</option>
+        <option value="Khác">Khác</option></select
+      ><br /><br />
+
+      <label for="feedback">Phản hồi:</label><br />
+      <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea
+      ><br /><br />
+
+      <button onclick="validateForm()" type="button">Gửi</button>
+    </form>
+  </body>
+</html>

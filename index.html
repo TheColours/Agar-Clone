@@ -3,17 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AGAR SOLO</title>
+    <title>Agar Solo</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="AGAR SOLO is a multiplayer action game where players try to eat other players and grow their own cells. Play for free now!"
+      content="Agar Solo is a multiplayer action game where players try to eat other players and grow their own cells. Play for free now!"
     />
     <meta
       name="keywords"
-      content="AGAR SOLO,agar solo, thecolors, thecolors agar, agar color, AGAR,agar, action, game, cells, free"
+      content="Agar Solo,agar solo, thecolors, thecolors agar, agar color, AGAR, agar, action, game, cells, free"
     />
-    <meta name="author" content="AGAR SOLO Team" />
     <link rel="icon" href="TemplateData/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="TemplateData/style.css" />
     <link rel="stylesheet" href="TemplateData/loading.css" />
@@ -24,6 +23,14 @@
       type="text/javascript"
       src="https://cdn.applixir.com/applixir.sdk3.0m.js"
     ></script>
+    <style>
+      #applixir_vanishing_div {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+      }
+    </style>
   </head>
   <body>
     <div id="applixir_vanishing_div" hidden>
@@ -31,33 +38,8 @@
     </div>
     <script type="text/javascript">
       function adStatusCallback(status) {
-        console.log("Applixir status: " + status);
-        if (status == "ad-blocker") {
-          instance.SendMessage("logged", "adblocker");
-        } else if (status == "ads-unavailable") {
-          instance.SendMessage("logged", "noadsavailable");
-        } else if (status == "fb-started" || status == "ad-started") {
-          instance.SendMessage("logged", "adwatching");
-        } else if (status == "ad-rewarded") {
-          instance.SendMessage("logged", "adreward");
-        }
+        instance.SendMessage("User", "Set_Notification_ads", status);
       }
-
-      // var options = {
-      //   // see online documentation for additional informaiton
-      //   zoneId: 2050, // required: the zone ID from the "Games" page
-      //   accountId: 7691, // optional: your account ID (required for RMS)
-      //   gameId: 8410, // optional: the ID for this game from the "Games"
-      //   dMode: 0, // 0 for no MD5 checksum, 1 for MD5 checksum (recommended)
-      //   fallback: 0, // 0 for no fallbacks, 1 will show fallback ads when ads-unavailable
-      //   verbosity: 0,
-      //   endMsg: 0,
-      //   maxAdt: 31,
-      //   btnDelay: 31,
-      //   vSize: "800x600",
-      //   userId: "ff9d6f9f-c70a-4e98-ba62-42b54c5dba03", // required: UUID value for current customer (required for targeted ads - UUID4 recommended) // optional: custom value for RMS - use to provide additional reward information
-      //   adStatusCb: adStatusCallback,
-      // };
     </script>
 
     <div id="unity-container" class="unity-desktop">
@@ -74,84 +56,6 @@
       <div id="unity-footer"></div>
     </div>
     <script>
-      function getmicrouserid(authcodene) {
-        const url = new URL("https://trumlon.nguyenchibinh113.workers.dev");
-        url.searchParams.set("authcode", authcodene);
-
-        fetch(url)
-          .then((response) => response.text())
-          .then((data) => {
-            data = data.replace(/"/g, "");
-            instance.SendMessage("Main Camera", "setmicro", data);
-            console.log(data);
-          })
-          .catch((error) => {
-            instance.SendMessage("Main Camera", "tatuser");
-            console.error("Error:", error);
-          });
-      }
-
-      function getgoogleuserid(token) {
-        var url =
-          "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" + token;
-        fetch(url)
-          .then((response) => response.json())
-          .then((data) => {
-            instance.SendMessage(
-              "Main Camera",
-              "setgoogle",
-              data.name.replace(/"/g, "") +
-                ",(Google)" +
-                data.id.replace(/"/g, "") +
-                "," +
-                data.picture.replace(/"/g, "")
-            );
-          })
-          .catch((error) => {
-             instance.SendMessage("Main Camera", "tatuser");
-            console.log(
-              "Lỗi khi lấy thông tin người dùng từ URL userinfo.profile: ",
-              error
-            );
-          });
-      }
-
-      function getdiscordUserID(codetoken) {
-        fetch("https://discord.com/api/v10/users/@me", {
-          headers: {
-            Authorization: `Bearer ` + codetoken,
-          },
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log("User ID:", data.id);
-            console.log("User name:", data.username);
-            console.log(
-              "User url:",
-              "https://cdn.discordapp.com/avatars/" +
-                data.id +
-                "/" +
-                data.avatar +
-                ".png"
-            );
-            var urldai =
-              "https://cdn.discordapp.com/avatars/" +
-              data.id +
-              "/" +
-              data.avatar +
-              ".png";
-            instance.SendMessage(
-              "Main Camera",
-              "setdiscord",
-              data.username + "," + "(Discord)" + data.id + "," + urldai
-            );
-          })
-          .catch((error) => {
-            instance.SendMessage("Main Camera", "tatuser");
-            console.log("Error retrieving user info:", error);
-          });
-      }
-
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var warningBanner = document.querySelector("#unity-warning");
@@ -200,26 +104,126 @@
         window.addEventListener("message", function (event) {
           var receivedMessage = event.data;
           if (event.origin === "https://agar.id.vn") {
+            var code = decodeURIComponent(
+              receivedMessage.substring(receivedMessage.indexOf(")") + 1)
+            );
             if (receivedMessage.includes("(discord)")) {
               instance.SendMessage("Main Camera", "hienloadgoogle");
-              getdiscordUserID(
-                decodeURIComponent(
-                  receivedMessage.substring(receivedMessage.indexOf(")") + 1)
-                )
-              );
+              fetch("https://discord.com/api/v10/users/@me", {
+                headers: {
+                  Authorization: `Bearer ` + codetoken,
+                },
+              })
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log("User ID:", data.id);
+                  console.log("User name:", data.username);
+                  console.log(
+                    "User url:",
+                    "https://cdn.discordapp.com/avatars/" +
+                      data.id +
+                      "/" +
+                      data.avatar +
+                      ".png"
+                  );
+                  var urldai =
+                    "https://cdn.discordapp.com/avatars/" +
+                    data.id +
+                    "/" +
+                    data.avatar +
+                    ".png";
+                  instance.SendMessage(
+                    "Main Camera",
+                    "setdiscord",
+                    data.username + "," + "(Discord)" + data.id + "," + urldai
+                  );
+                })
+                .catch((error) => {
+                  instance.SendMessage("Main Camera", "tatuser");
+                  console.log("Error retrieving user info:", error);
+                });
             } else if (receivedMessage.includes("(Microsoft)")) {
               instance.SendMessage("Main Camera", "hienloadgoogle");
-              getmicrouserid(
-                decodeURIComponent(
-                  receivedMessage.substring(receivedMessage.indexOf(")") + 1)
-                )
+              const url = new URL(
+                "https://trumlon.nguyenchibinh113.workers.dev"
               );
+              url.searchParams.set("authcode", authcodene);
+
+              fetch(url)
+                .then((response) => response.text())
+                .then((data) => {
+                  data = data.replace(/"/g, "");
+                  instance.SendMessage("Main Camera", "setmicro", data);
+                  console.log(data);
+                })
+                .catch((error) => {
+                  instance.SendMessage("Main Camera", "tatuser");
+                  console.error("Error:", error);
+                });
             } else if (receivedMessage.includes("(Google)")) {
               instance.SendMessage("Main Camera", "hienloadgoogle");
-              getgoogleuserid(
-                decodeURIComponent(
-                  receivedMessage.substring(receivedMessage.indexOf(")") + 1)
-                )
+              var url =
+                "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" +
+                code;
+              fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                  instance.SendMessage(
+                    "Main Camera",
+                    "setgoogle",
+                    data.name.replace(/"/g, "") +
+                      ",(Google)" +
+                      data.id.replace(/"/g, "") +
+                      "," +
+                      data.picture.replace(/"/g, "")
+                  );
+                })
+                .catch((error) => {
+                  instance.SendMessage("Main Camera", "tatuser");
+                  console.log(
+                    "Lỗi khi lấy thông tin người dùng từ URL userinfo.profile: ",
+                    error
+                  );
+                });
+            } else if (receivedMessage.includes("(Facebook)")) {
+              fetch(
+                `https://graph.facebook.com/v13.0/me?fields=id,name,email&access_token=${code}`
+              )
+                .then((response) => response.json())
+                .then((data) => {
+                  console.log(data);
+                  instance.SendMessage(
+                    "Main Camera",
+                    "LoginWithOther",
+                    data.id +
+                      "+" +
+                      data.name +
+                      "+" +
+                      data.email +
+                      "+" +
+                      "null" +
+                      "+" +
+                      "https://graph.facebook.com/" +
+                      data.id +
+                      "/picture?access_token=" +
+                      accessToken +
+                      "+" +
+                      "Facebook"
+                  );
+                })
+                .catch((error) => {
+                  console.log(error);
+                  instance.SendMessage("Main Camera", "OffLoading");
+                });
+            }
+          } else {
+            if (JSON.parse(receivedMessage).command == "order-status") {
+              instance.SendMessage(
+                "Recharge",
+                "Set_money",
+                JSON.parse(receivedMessage).data.user_id +
+                  " " +
+                  JSON.parse(receivedMessage).data.items[0].sku
               );
             }
           }
@@ -239,7 +243,6 @@
           newHeight = newWidth / gameRatio;
         }
 
-        // Cập nhật kích thước của canvas
         canvas.style.width = (newWidth * 0.91).toString() + "px";
         canvas.style.height = (newHeight * 0.91).toString() + "px";
 

@@ -48,10 +48,10 @@
       }
       if (Iserror == false) {
         window.opener.postMessage("(" + Type + ")" + message, "*");
-        window.close();
       } else {
         console.log("not found state");
       }
+      window.close();
     });
   </script>
 </html>
