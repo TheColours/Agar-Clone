@@ -19,6 +19,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
+    <script src="https://download.playfab.com/PlayFabClientApi.js"></script>
+
     <script
       type="text/javascript"
       src="https://cdn.applixir.com/applixir.sdk3.0m.js"
@@ -39,6 +41,14 @@
     <script type="text/javascript">
       function adStatusCallback(status) {
         instance.SendMessage("User", "Set_Notification_ads", status);
+      }
+      function onPlayFabResponse(response, error) {
+        if (response) {
+          console.log(response);
+        }
+        if (error) {
+          console.log(error);
+        }
       }
     </script>
 
@@ -161,30 +171,14 @@
                   console.error("Error:", error);
                 });
             } else if (receivedMessage.includes("(Google)")) {
-              instance.SendMessage("Main Camera", "hienloadgoogle");
-              var url =
-                "https://www.googleapis.com/oauth2/v1/userinfo?access_token=" +
-                code;
-              fetch(url)
-                .then((response) => response.json())
-                .then((data) => {
-                  instance.SendMessage(
-                    "Main Camera",
-                    "setgoogle",
-                    data.name.replace(/"/g, "") +
-                      ",(Google)" +
-                      data.id.replace(/"/g, "") +
-                      "," +
-                      data.picture.replace(/"/g, "")
-                  );
-                })
-                .catch((error) => {
-                  instance.SendMessage("Main Camera", "tatuser");
-                  console.log(
-                    "Lỗi khi lấy thông tin người dùng từ URL userinfo.profile: ",
-                    error
-                  );
-                });
+              PlayFabClientSDK.LoginWithGoogleAccount(
+                {
+                  AccessToken: code, // This access token is generated after a user has signed into Google
+                  CreateAccount: true,
+                  TitleId: "481CF", // TODO: PUT YOUR TITLE ID HERE!
+                },
+                onPlayFabResponse
+              );
             } else if (receivedMessage.includes("(Facebook)")) {
               fetch(
                 `https://graph.facebook.com/v13.0/me?fields=id,name,email&access_token=${code}`
