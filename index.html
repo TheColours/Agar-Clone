@@ -176,8 +176,10 @@
                 (response, error) => {
                   if (response) {
                     console.log(response);
-
-                    if (response.data.Ads === undefined) {
+                    console.log(typeof response);
+                    if (
+                      response.data.InfoResultPayload.UserData.Ads === undefined
+                    ) {
                       // Giá trị là undefined
                       console.log("ko co");
                     } else {
