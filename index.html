@@ -45,9 +45,9 @@
       function onPlayFabResponse(response, error) {
         if (response) {
           console.log(response);
+          PlayFab.settings.titleId = "481CF";
           var getFriendsRequest = {
             PlayFabId: response.data.InfoResultPayload.AccountInfo.PlayFabId,
-            TitleId: "481CF", // TODO: PUT YOUR TITLE ID HERE!
           };
           PlayFabClientSDK.GetFriendsList(
             getFriendsRequest,
