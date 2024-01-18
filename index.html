@@ -176,16 +176,7 @@
                 (response, error) => {
                   if (response) {
                     console.log(response);
-                    console.log(typeof response);
-                    if (
-                      response.data.InfoResultPayload.UserData.Ads === undefined
-                    ) {
-                      // Giá trị là undefined
-                      console.log("ko co");
-                    } else {
-                      // Giá trị không phải là undefined
-                      console.log("co");
-                    }
+                    instance.SendMessage("GameManager", Set_Google, response);
                     PlayFab.settings.titleId = "481CF";
                     var getFriendsRequest = {
                       PlayFabId:
