@@ -176,7 +176,7 @@
                 (response, error) => {
                   if (response) {
                     console.log(response);
-                    instance.SendMessage("GameManager", "Set_Google", response);
+                    instance.SendMessage("GameManager", "Set_Google", JSON.stringify(response));
                     PlayFab.settings.titleId = "481CF";
                     var getFriendsRequest = {
                       PlayFabId:
