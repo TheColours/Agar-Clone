@@ -44,15 +44,7 @@
       }
       function onPlayFabResponse(response, error) {
         if (response) {
-          console.log("Đăng nhập thành công!");
-
-          // Lấy thông tin vị trí (locations)
-          var locations = response.data.PlayerProfile.Locations;
-          console.log("Thông tin vị trí: ", locations);
-
-          // Lấy URL hình đại diện (avatar URL)
-          var avatarUrl = response.data.PlayerProfile.AvatarUrl;
-          console.log("URL hình đại diện: ", avatarUrl);
+          console.log(response);
         }
         if (error) {
           console.log(error);
