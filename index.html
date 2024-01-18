@@ -124,6 +124,14 @@
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
+        var playFabSettings = {
+          titleId: "481CF",
+          developerSecretKey:
+            "7MZWIZYK6EA13QWE3XPE3W89WUKW4DIQFHYQBKKME8B6QMQEQG",
+          serverURL: "https://481cf.api.main.azureplayfab.com/",
+        };
+        PlayFab.settings = playFabSettings;
+
         window.addEventListener("message", function (event) {
           var receivedMessage = event.data;
           if (event.origin === "https://agar.id.vn") {
