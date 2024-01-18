@@ -42,28 +42,6 @@
       function adStatusCallback(status) {
         instance.SendMessage("User", "Set_Notification_ads", status);
       }
-      function onPlayFabResponse(response, error) {
-        if (response) {
-          console.log(response);
-          PlayFab.settings.titleId = "481CF";
-          var getFriendsRequest = {
-            PlayFabId: response.data.InfoResultPayload.AccountInfo.PlayFabId,
-          };
-          PlayFabClientSDK.GetFriendsList(
-            getFriendsRequest,
-            (result, error) => {
-              if (result) {
-                console.log(result);
-              } else {
-                console.log(error);
-              }
-            }
-          );
-        }
-        if (error) {
-          console.log(error);
-        }
-      }
     </script>
 
     <div id="unity-container" class="unity-desktop">
@@ -200,7 +178,36 @@
                     ShowDisplayName: true,
                   },
                 },
-                onPlayFabResponse
+                (response, error) => {
+                  if (response) {
+                    console.log(response);
+                    PlayFab.settings.titleId = "481CF";
+                    var getFriendsRequest = {
+                      PlayFabId:
+                        response.data.InfoResultPayload.AccountInfo.PlayFabId,
+                      ProfileConstraints: {
+                        ShowLocations: true,
+                        ShowAvatarUrl: true,
+                        ShowDisplayName: true,
+                        ShowContactEmailAddresses: true,
+                        ShowTags: true,
+                      },
+                    };
+                    PlayFabClientSDK.GetFriendsList(
+                      getFriendsRequest,
+                      (result, error) => {
+                        if (result) {
+                          console.log(result);
+                        } else {
+                          console.log(error);
+                        }
+                      }
+                    );
+                  }
+                  if (error) {
+                    console.log(error);
+                  }
+                }
               );
             } else if (receivedMessage.includes("(Facebook)")) {
               fetch(
