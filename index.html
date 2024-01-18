@@ -176,10 +176,13 @@
                 (response, error) => {
                   if (response) {
                     console.log(response);
-                    try {
-                      console.log(response.data.Ads);
-                    } catch (error) {
-                      console.error("Đã xảy ra lỗi:", error);
+
+                    if (response.data.Ads === undefined) {
+                      // Giá trị là undefined
+                      console.log("ko co");
+                    } else {
+                      // Giá trị không phải là undefined
+                      console.log("co");
                     }
                     PlayFab.settings.titleId = "481CF";
                     var getFriendsRequest = {
