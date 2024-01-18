@@ -45,6 +45,19 @@
       function onPlayFabResponse(response, error) {
         if (response) {
           console.log(response);
+          var getFriendsRequest = {
+            PlayFabId: response.data.InfoResultPayload.AccountInfo.PlayFabId,
+          };
+          PlayFabClientSDK.GetFriendsList(
+            getFriendsRequest,
+            (result, error) => {
+              if (result) {
+                console.log(result);
+              } else {
+                console.log(error);
+              }
+            }
+          );
         }
         if (error) {
           console.log(error);
