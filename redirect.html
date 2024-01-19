@@ -47,6 +47,7 @@
             currentURL.indexOf("access_token=") + "access_token=".length;
           endindex = currentURL.indexOf("&data_access_expiration_time");
           message = currentURL.substring(startIndex, endindex);
+          break;
         default:
           Iserror = true;
           break;
@@ -56,7 +57,7 @@
       } else {
         console.log("not found state");
       }
-      //window.close();
+      window.close();
     });
   </script>
 </html>
