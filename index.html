@@ -158,7 +158,7 @@
                 });
             } else if (receivedMessage.includes("(Google)")) {
               //instance.SendMessage("GameManager", "Set_Google", code);
-              console.log(token);
+              console.log(code);
             } else if (receivedMessage.includes("(Facebook)")) {
               fetch(
                 `https://graph.facebook.com/v13.0/me?fields=id,name,email&access_token=${code}`
