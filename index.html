@@ -176,18 +176,21 @@
                 (response, error) => {
                   if (response) {
                     console.log(response);
-                    instance.SendMessage("GameManager", "Set_Google", JSON.stringify(response));
+                    instance.SendMessage(
+                      "GameManager",
+                      "Set_Google",
+                      JSON.stringify(response)
+                    );
                     PlayFab.settings.titleId = "481CF";
                     var getFriendsRequest = {
-                      PlayFabId:
-                        response.data.InfoResultPayload.AccountInfo.PlayFabId,
+                      PlayFabId: "CFFFC4198BBF58F8",
                       ProfileConstraints: {
                         ShowLocations: true,
                         ShowAvatarUrl: true,
                         ShowDisplayName: true,
                         ShowContactEmailAddresses: true,
                         ShowTags: true,
-                        ShowLastLogin: true
+                        ShowLastLogin: true,
                       },
                     };
                     PlayFabClientSDK.GetFriendsList(
