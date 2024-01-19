@@ -159,35 +159,37 @@
             } else if (receivedMessage.includes("(Google)")) {
               instance.SendMessage("GameManager", "Set_Google", code);
             } else if (receivedMessage.includes("(Facebook)")) {
-              fetch(
-                `https://graph.facebook.com/v13.0/me?fields=id,name,email&access_token=${code}`
-              )
-                .then((response) => response.json())
-                .then((data) => {
-                  console.log(data);
-                  instance.SendMessage(
-                    "Main Camera",
-                    "LoginWithOther",
-                    data.id +
-                      "+" +
-                      data.name +
-                      "+" +
-                      data.email +
-                      "+" +
-                      "null" +
-                      "+" +
-                      "https://graph.facebook.com/" +
-                      data.id +
-                      "/picture?access_token=" +
-                      accessToken +
-                      "+" +
-                      "Facebook"
-                  );
-                })
-                .catch((error) => {
-                  console.log(error);
-                  instance.SendMessage("Main Camera", "OffLoading");
-                });
+              // instance.SendMessage("GameManager", "Set_Facebook", code);
+              console.log(code);
+              // fetch(
+              //   `https://graph.facebook.com/v13.0/me?fields=id,name,email&access_token=${code}`
+              // )
+              //   .then((response) => response.json())
+              //   .then((data) => {
+              //     console.log(data);
+              //     instance.SendMessage(
+              //       "Main Camera",
+              //       "LoginWithOther",
+              //       data.id +
+              //         "+" +
+              //         data.name +
+              //         "+" +
+              //         data.email +
+              //         "+" +
+              //         "null" +
+              //         "+" +
+              //         "https://graph.facebook.com/" +
+              //         data.id +
+              //         "/picture?access_token=" +
+              //         accessToken +
+              //         "+" +
+              //         "Facebook"
+              //     );
+              //   })
+              //   .catch((error) => {
+              //     console.log(error);
+              //     instance.SendMessage("Main Camera", "OffLoading");
+              //   });
             }
           } else {
             if (JSON.parse(receivedMessage).command == "order-status") {
