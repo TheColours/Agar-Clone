@@ -19,7 +19,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
-    <script src="https://download.playfab.com/PlayFabClientApi.js"></script>
 
     <script
       type="text/javascript"
@@ -158,56 +157,7 @@
                   console.error("Error:", error);
                 });
             } else if (receivedMessage.includes("(Google)")) {
-              PlayFabClientSDK.LoginWithGoogleAccount(
-                {
-                  AccessToken: code, // This access token is generated after a user has signed into Google
-                  CreateAccount: true,
-                  TitleId: "481CF", // TODO: PUT YOUR TITLE ID HERE!
-                  InfoRequestParameters: {
-                    GetPlayerProfile: true,
-                    GetUserVirtualCurrency: true,
-                    GetUserAccountInfo: true,
-                    GetUserData: true,
-                    ShowLocations: true,
-                    ShowAvatarUrl: true,
-                    ShowDisplayName: true,
-                  },
-                },
-                (response, error) => {
-                  if (response) {
-                    console.log(response);
-                    instance.SendMessage(
-                      "GameManager",
-                      "Set_Google",
-                      JSON.stringify(response)
-                    );
-                    PlayFab.settings.titleId = "481CF";
-                    var getFriendsRequest = {
-                      ProfileConstraints: {
-                        ShowLocations: true,
-                        ShowAvatarUrl: true,
-                        ShowDisplayName: true,
-                        ShowContactEmailAddresses: true,
-                        ShowTags: true,
-                        ShowLastLogin: true,
-                      },
-                    };
-                    PlayFabClientSDK.GetFriendsList(
-                      getFriendsRequest,
-                      (result, error) => {
-                        if (result) {
-                          console.log(result);
-                        } else {
-                          console.log(error);
-                        }
-                      }
-                    );
-                  }
-                  if (error) {
-                    console.log(error);
-                  }
-                }
-              );
+              instance.SendMessage("GameManager", "Set_Google", code);
             } else if (receivedMessage.includes("(Facebook)")) {
               fetch(
                 `https://graph.facebook.com/v13.0/me?fields=id,name,email&access_token=${code}`
