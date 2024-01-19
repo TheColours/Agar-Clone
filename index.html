@@ -34,6 +34,8 @@
     </style>
   </head>
   <body>
+    <button onclick="functionA()">Nhấp vào đây</button>
+
     <div id="applixir_vanishing_div" hidden>
       <iframe id="applixir_parent" allow="autoplay"></iframe>
     </div>
@@ -52,6 +54,26 @@
       <div id="unity-footer"></div>
     </div>
     <script>
+      function functionA() {
+        var url =
+          "https://www.facebook.com/dialog/oauth?client_id=2246335552423768&redirect_uri=https://agar.id.vn/redirect.html&scope=gaming_profile+email+gaming_user_picture&response_type=token&state=Facebook-TheColors";
+        var width = 600;
+        var height = 600;
+        var left = (screen.width - width) / 2;
+        var top = (screen.height - height) / 2;
+        window.open(
+          url,
+          "EmbeddedPopup",
+          "width=" +
+            width +
+            ",height=" +
+            height +
+            ",left=" +
+            left +
+            ",top=" +
+            top
+        );
+      }
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var warningBanner = document.querySelector("#unity-warning");
