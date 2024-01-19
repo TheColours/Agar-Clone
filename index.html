@@ -179,7 +179,8 @@
                   console.error("Error:", error);
                 });
             } else if (receivedMessage.includes("(Google)")) {
-              instance.SendMessage("GameManager", "Set_Google", code);
+              // instance.SendMessage("GameManager", "Set_Google", code);
+              console.log(code);
             } else if (receivedMessage.includes("(Facebook)")) {
               // instance.SendMessage("GameManager", "Set_Facebook", code);
               console.log(code);
