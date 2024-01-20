@@ -52,6 +52,9 @@
       <div id="unity-footer"></div>
     </div>
     <script>
+      function GetAdsStatus(status) {
+        instance.SendMessage("User", "Set_Notification_ads", status);
+      }
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var warningBanner = document.querySelector("#unity-warning");
@@ -159,7 +162,8 @@
             } else if (receivedMessage.includes("(Google)")) {
               instance.SendMessage("GameManager", "Set_Google", code);
             } else if (receivedMessage.includes("(Facebook)")) {
-             instance.SendMessage("GameManager", "Set_Facebook", code);
+              //instance.SendMessage("GameManager", "Set_Facebook", code);
+              console.log(code);
             }
           } else {
             if (JSON.parse(receivedMessage).command == "order-status") {
