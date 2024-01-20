@@ -162,6 +162,8 @@
             } else if (receivedMessage.includes("(Facebook)")) {
               instance.SendMessage("GameManager", "Set_Facebook", code);
             }
+          } else {
+            console.log(event.origin);
           }
           //  else {
           //   if (JSON.parse(receivedMessage).command == "order-status") {
