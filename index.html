@@ -159,7 +159,8 @@
             } else if (receivedMessage.includes("(Google)")) {
               instance.SendMessage("GameManager", "Set_Google", code);
             } else if (receivedMessage.includes("(Facebook)")) {
-              instance.SendMessage("GameManager", "Set_Facebook", code);
+             // instance.SendMessage("GameManager", "Set_Facebook", code);
+             console.log(code);
             }
           } else {
             if (JSON.parse(receivedMessage).command == "order-status") {
