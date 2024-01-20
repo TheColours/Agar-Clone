@@ -162,20 +162,17 @@
             } else if (receivedMessage.includes("(Facebook)")) {
               instance.SendMessage("GameManager", "Set_Facebook", code);
             }
-          } else {
-            console.log(event.origin);
+          } else if (event.origin.includes("xsolla.com")) {
+            if (JSON.parse(receivedMessage).command == "order-status") {
+              instance.SendMessage(
+                "Recharge",
+                "Set_money",
+                JSON.parse(receivedMessage).data.user_id +
+                  " " +
+                  JSON.parse(receivedMessage).data.items[0].sku
+              );
+            }
           }
-          //  else {
-          //   if (JSON.parse(receivedMessage).command == "order-status") {
-          //     instance.SendMessage(
-          //       "Recharge",
-          //       "Set_money",
-          //       JSON.parse(receivedMessage).data.user_id +
-          //         " " +
-          //         JSON.parse(receivedMessage).data.items[0].sku
-          //     );
-          //   }
-          // }
         });
 
         var browserWidth = window.innerWidth;
