@@ -19,7 +19,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
-
     <script
       type="text/javascript"
       src="https://cdn.applixir.com/applixir.sdk3.0m.js"
@@ -37,7 +36,6 @@
     <div id="applixir_vanishing_div" hidden>
       <iframe id="applixir_parent" allow="autoplay"></iframe>
     </div>
-
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="loading">
@@ -164,17 +162,18 @@
             } else if (receivedMessage.includes("(Facebook)")) {
               instance.SendMessage("GameManager", "Set_Facebook", code);
             }
-          } else {
-            if (JSON.parse(receivedMessage).command == "order-status") {
-              instance.SendMessage(
-                "Recharge",
-                "Set_money",
-                JSON.parse(receivedMessage).data.user_id +
-                  " " +
-                  JSON.parse(receivedMessage).data.items[0].sku
-              );
-            }
           }
+          //  else {
+          //   if (JSON.parse(receivedMessage).command == "order-status") {
+          //     instance.SendMessage(
+          //       "Recharge",
+          //       "Set_money",
+          //       JSON.parse(receivedMessage).data.user_id +
+          //         " " +
+          //         JSON.parse(receivedMessage).data.items[0].sku
+          //     );
+          //   }
+          // }
         });
 
         var browserWidth = window.innerWidth;
