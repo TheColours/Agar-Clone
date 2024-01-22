@@ -33,24 +33,7 @@
     </style>
   </head>
   <body>
-    <button onclick="functionA()">Nhấn để gọi hàm A</button>
-
     <script type="text/javascript">
-      function functionA(){
-        url = "https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=qdt8a9lzfgfswr1485wn9y1d9m06bc&redirect_uri=https://agar.id.vn/redirect.html&scope=openid+user:read:email&state=Twitch-TheColors";
-        var width = 600;
-    var height = 600;
-    var left = (screen.width - width) / 2;
-    var top = (screen.height - height) / 2;
-    window.open(
-      url,
-      "EmbeddedPopup",
-      "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top
-    );
-      }
-      function B(code){
-        console.log(code);
-      }
      function adStatusCallback(status) {
         instance.SendMessage("User", "Set_Notification_ads", status);
       }
@@ -125,8 +108,7 @@
             var code = decodeURIComponent(
               receivedMessage.split(" ")[1]
             );
-          //  instance.SendMessage("GameManager", "Set_" + receivedMessage.split(" ")[0], code);
-            B(code);
+           instance.SendMessage("GameManager", "Set_" + receivedMessage.split(" ")[0], code);
           } else if (event.origin.includes("xsolla.com")) {
             if (JSON.parse(receivedMessage).command == "order-status") {
               instance.SendMessage(
@@ -167,7 +149,6 @@
           });
       };
       document.body.appendChild(script);
-     
       </script>
     </script>
   </body>
