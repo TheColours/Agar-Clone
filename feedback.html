@@ -12,7 +12,6 @@
         var subject = document.getElementById("subject").value;
         var feedback = document.getElementById("feedback").value;
 
-        // Dữ liệu cần gửi
         var data = {
           Name: name,
           Email: email,
@@ -28,11 +27,9 @@
         })
           .then((response) => response.text())
           .then((result) => {
-            // Xử lý kết quả từ API
             alert("Success!");
           })
           .catch((error) => {
-            // Xử lý lỗi
             console.error("Error:", error);
           });
       }

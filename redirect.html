@@ -28,32 +28,24 @@
           startIndex =
             currentURL.indexOf("access_token=") + "access_token=".length;
           endindex = currentURL.indexOf("&token_type");
-          message = currentURL.substring(startIndex, endindex);
-          break;
-        case "discord":
-          startIndex =
-            currentURL.indexOf("access_token=") + "access_token=".length;
-          endindex = currentURL.indexOf("&expires_in");
-          message = currentURL.substring(startIndex, endindex);
-          break;
-
-        case "Microsoft":
-          startIndex = currentURL.indexOf("code=") + "code=".length;
-          endindex = currentURL.indexOf("&state");
-          message = currentURL.substring(startIndex, endindex);
           break;
         case "Facebook":
           startIndex =
             currentURL.indexOf("access_token=") + "access_token=".length;
           endindex = currentURL.indexOf("&data_access_expiration_time");
-          message = currentURL.substring(startIndex, endindex);
+          break;
+        case "Twitch":
+          startIndex =
+            currentURL.indexOf("access_token=") + "access_token=".length;
+          endindex = currentURL.indexOf("&scope");
           break;
         default:
           Iserror = true;
           break;
       }
       if (Iserror == false) {
-        window.opener.postMessage("(" + Type + ")" + message, "*");
+        message = currentURL.substring(startIndex, endindex);
+        window.opener.postMessage(Type + " " + message, "*");
       } else {
         console.log("not found state");
       }
