@@ -12,7 +12,6 @@
   <script defer>
     window.addEventListener("DOMContentLoaded", function () {
       var currentURL = window.location.href;
-      var startIndex;
       var endindex;
       var message;
       var Iserror = false;
@@ -23,21 +22,20 @@
           currentURL.indexOf("-TheColors")
         )
         .toString();
+      var startIndex =
+        currentURL.indexOf("access_token=") + "access_token=".length;
       switch (Type) {
         case "Google":
-          startIndex =
-            currentURL.indexOf("access_token=") + "access_token=".length;
           endindex = currentURL.indexOf("&token_type");
           break;
         case "Facebook":
-          startIndex =
-            currentURL.indexOf("access_token=") + "access_token=".length;
           endindex = currentURL.indexOf("&data_access_expiration_time");
           break;
         case "Twitch":
-          startIndex =
-            currentURL.indexOf("access_token=") + "access_token=".length;
           endindex = currentURL.indexOf("&scope");
+          break;
+        case "Discord":
+          endindex = currentURL.indexOf("&expires_in");
           break;
         default:
           Iserror = true;
