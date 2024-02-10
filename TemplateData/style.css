@@ -16,11 +16,6 @@ body {
 }
 #unity-canvas {
   background: rgb(255, 255, 255);
-  border: 2px solid #000;
-  background-image: url("background.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 .unity-mobile #unity-canvas {
   width: 100%;
