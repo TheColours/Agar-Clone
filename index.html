@@ -45,7 +45,7 @@
     <div id="applixir_vanishing_div" hidden>
       <iframe id="applixir_parent" allow="autoplay"></iframe>
     </div>
-    <div id="unity-container" style="width: 100%; height: 100%" class="unity-desktop">
+    <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
       <div id="loading">
         <div class="tetrominos">
@@ -125,24 +125,9 @@
             }
           }
         });
-
-        // var browserWidth = window.innerWidth;
-        // var browserHeight = window.innerHeight;
-        // var browserRatio = browserWidth / browserHeight;
-        // var gameRatio = 1920 / 1080;
-
-        // var newWidth, newHeight;
-        // if (browserRatio > gameRatio) {
-        //   newHeight = browserHeight;
-        //   newWidth = browserHeight * gameRatio;
-        // } else {
-        //   newWidth = browserWidth;
-        //   newHeight = newWidth / gameRatio;
-        // }
         document.body.style.overflow = "hidden";
         canvas.style.width = document.documentElement.clientWidth + "px";
         canvas.style.height = document.documentElement.clientHeight + "px";
-
         createUnityInstance(canvas, config, (progress) => {})
           .then((unityInstance) => {
             loading.style.display = "none";
