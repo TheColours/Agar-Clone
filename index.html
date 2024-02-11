@@ -143,11 +143,6 @@
         // canvas.style.width = (newWidth).toString() + "px";
         // canvas.style.height = (newHeight).toString() + "px";
 
-        var mywidth = innerWidth;
-        var myheight = innerHeight;
-        document.getElementById("unity-canvas").style.width = mywidth + "px";
-        document.getElementById("unity-canvas").style.height = myheight + "px";
-
         createUnityInstance(canvas, config, (progress) => {})
           .then((unityInstance) => {
             loading.style.display = "none";
