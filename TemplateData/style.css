@@ -15,7 +15,7 @@ body {
   height: 100%;
 }
 #unity-canvas {
-  background: rgb(255, 255, 255);
+  background: rgb(112, 13, 13);
 }
 .unity-mobile #unity-canvas {
   width: 100%;
