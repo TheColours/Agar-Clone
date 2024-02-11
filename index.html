@@ -47,7 +47,7 @@
     </div>
     
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" ></canvas>
+      <canvas id="unity-canvas" style="display: none;"></canvas>
     
       <div id="unity-warning"></div>
       <div id="unity-footer"></div>
@@ -133,6 +133,7 @@
         createUnityInstance(canvas, config, (progress) => {})
           .then((unityInstance) => {
             loading.style.display = "none";
+            canvas.style.display = "block";
             instance = unityInstance;
           })
           .catch((message) => {
