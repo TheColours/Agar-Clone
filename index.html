@@ -140,8 +140,8 @@
         //   newHeight = newWidth / gameRatio;
         // }
 
-        // canvas.style.width = (newWidth).toString() + "px";
-        // canvas.style.height = (newHeight).toString() + "px";
+         canvas.style.width = (window.innerWidth).toString() + "px";
+         canvas.style.height = (window.innerHeight).toString() + "px";
 
         createUnityInstance(canvas, config, (progress) => {})
           .then((unityInstance) => {
