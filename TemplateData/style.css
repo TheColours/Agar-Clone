@@ -16,6 +16,7 @@ body {
 }
 #unity-canvas {
   background: rgb(246, 244, 244);
+
 }
 .unity-mobile #unity-canvas {
   width: 100%;
