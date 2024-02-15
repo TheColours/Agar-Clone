@@ -118,7 +118,7 @@
           } else if (event.origin.includes("xsolla.com")) {
             if (JSON.parse(receivedMessage).command == "order-status") {
               instance.SendMessage(
-                "Recharge",
+                "GameManager",
                 "Set_money",
                 JSON.parse(receivedMessage).data.user_id +
                   " " +
