@@ -4,7 +4,8 @@ Agar Clone
 
 A simple yet powerful Agar.IO clone built using Unity, incorporating the use of Photon Networking for seamless multiplayer experience.
 
-![image](https://github.com/TheColours/Agar-Solo/assets/97489339/be56a8ea-2dbe-4b7a-b3f3-f443ab3d94a9)
+![image](https://github.com/TheColours/Agar-Clone/assets/97489339/cd6baf34-828d-4ff1-9df8-6888a31d3678)
+
 
 
 #### Game Basics
