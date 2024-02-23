@@ -1,5 +1,4 @@
 google.com, pub-9871897611748477, RESELLER, f08c47fec0942fa0
-google.com, pub-8832461201977627, DIRECT, f08c47fec0942fa0
 facebook.com, pub-8637246282765423, RESELLER, c3e20eee3f780d68
 appnexus.com, 10080, RESELLER, f5ab79cb980f11d1
 advertising.com, 7126, RESELLER, e1a5b5b6e3255540
