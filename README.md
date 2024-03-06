@@ -6,6 +6,7 @@ A simple yet powerful Agar.IO clone built using Unity, incorporating the use of 
 
 ![image](https://github.com/TheColours/Agar-Clone/assets/97489339/59b93514-4545-4eb1-a500-07501a4f7468)
 
+![image](https://github.com/TheColours/Agar-Clone/assets/97489339/23d939f4-e1c9-4f4e-9d34-703cdc8a15b4)
 
 
 
