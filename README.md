@@ -25,7 +25,8 @@ A simple yet powerful Agar.IO clone built using Unity, incorporating the use of 
 
 + Leaderoard
 
-![image](https://github.com/TheColours/Agar-Clone/assets/97489339/1a6393da-9eed-41a5-b6c1-07da56145af8)
+![image](https://github.com/TheColours/Agar-Clone/assets/97489339/1fb987d1-00eb-4efd-a36a-226f5d110c8c)
+
 
 
 
