@@ -1,85 +1,53 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Agar Clone</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Agar Clone is a multiplayer action game where players try to eat other players and grow their own cells. Play for free now!"
-    />
-    <meta
-      name="keywords"
-      content="Agar Clone, agar clone, agar.io clone, agar clone vn, agar clone id, thecolors, thecolors agar, agar color, AGAR, agar, action, game, cells, free"
-    />
-    <link rel="icon" href="TemplateData/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="TemplateData/style.css" />
-    <link rel="stylesheet" href="TemplateData/loading.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
-    <script id="Cookiebot" src="https://consent.cookiebot.com/uc.js" data-cbid="714f660c-d0b8-4079-a195-8a0d4fe69a79" data-blockingmode="auto" type="text/javascript"></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.applixir.com/applixir.sdk3.0m.js"
-    ></script>
-    <style>
-      #applixir_vanishing_div {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-      }
-    </style>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | IO</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
   </head>
   <body>
-    <script type="text/javascript">
-     function adStatusCallback(status) {
-        instance.SendMessage("User", "Set_Notification_ads", status);
-      }
-    </script>
-    <div id="applixir_vanishing_div" hidden>
-      <iframe id="applixir_parent" allow="autoplay"></iframe>
-    </div>
-    
     <div id="unity-container" class="unity-desktop">
-      <canvas id="unity-canvas" style="display: none;"></canvas>
-    
-      <div id="unity-warning"></div>
-      <div id="unity-footer"></div>
-    </div>
-
-    <div id="loading">
-      <div class="tetrominos">
-        <div class="tetromino box1"></div>
-        <div class="tetromino box2"></div>
-        <div class="tetromino box3"></div>
-        <div class="tetromino box4"></div>
+      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">IO</div>
       </div>
     </div>
-
     <script>
-      
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
       var warningBanner = document.querySelector("#unity-warning");
-      var loading = document.querySelector("#loading");
 
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length
-            ? "block"
-            : "none";
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
         }
-        var div = document.createElement("div");
+        var div = document.createElement('div');
         div.innerHTML = msg;
         warningBanner.appendChild(div);
-        if (type == "error") div.style = "background: red; padding: 10px;";
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
         else {
-          if (type == "warning")
-            div.style = "background: yellow; padding: 10px;";
-          setTimeout(function () {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
             warningBanner.removeChild(div);
             updateBannerVisibility();
           }, 5000);
@@ -88,57 +56,64 @@
       }
 
       var buildUrl = "Build";
-      var loaderUrl = buildUrl + "/Game.loader.js";
+      var loaderUrl = buildUrl + "/Agar-Clone.loader.js";
       var config = {
-        dataUrl: buildUrl + "/Game.data.br",
-        frameworkUrl: buildUrl + "/Game.framework.js.br",
-        codeUrl: buildUrl + "/Game.wasm.br",
+        dataUrl: buildUrl + "/Agar-Clone.data.br",
+        frameworkUrl: buildUrl + "/Agar-Clone.framework.js.br",
+        codeUrl: buildUrl + "/Agar-Clone.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "TheColors",
+        companyName: "DefaultCompany",
         productName: "IO",
         productVersion: "1.0",
         showBanner: unityShowBanner,
       };
 
+      // By default Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
 
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+        unityShowBanner('WebGL builds are not supported on mobile devices.');
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+
+      loadingBar.style.display = "block";
 
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
-        window.addEventListener("message", function (event) {
-          var receivedMessage = event.data;
-          if (event.origin === "https://agar.id.vn") {
-            var code = decodeURIComponent(
-              receivedMessage.split(" ")[1]
-            );
-           instance.SendMessage("GameManager", "Set_" + receivedMessage.split(" ")[0], code);
-          } else if (event.origin.includes("xsolla.com")) {
-            if (JSON.parse(receivedMessage).command == "order-status") {
-              instance.SendMessage(
-                "GameManager",
-                "Set_money",
-                JSON.parse(receivedMessage).data.user_id +
-                  " " +
-                  JSON.parse(receivedMessage).data.items[0].sku
-              );
-            }
-          }
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
+        }).then((unityInstance) => {
+          loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
         });
-        document.body.style.overflow = "hidden";
-        canvas.style.width = document.documentElement.clientWidth + "px";
-        canvas.style.height = document.documentElement.clientHeight + "px";
-        createUnityInstance(canvas, config, (progress) => {})
-          .then((unityInstance) => {
-            loading.style.display = "none";
-            canvas.style.display = "block";
-            instance = unityInstance;
-          })
-          .catch((message) => {
-            alert(message);
-          });
       };
       document.body.appendChild(script);
-      </script>
     </script>
   </body>
 </html>
