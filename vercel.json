@@ -1,7 +1,7 @@
 {
   "headers": [
     {
-      "source": "/Build/Game.data.br",
+      "source": "/Build/Agar-Clone.data.br",
       "headers": [
         {
           "key": "Content-Encoding",
@@ -14,7 +14,7 @@
       ]
     },
     {
-      "source": "/Build/Game.wasm.br",
+      "source": "/Build/Agar-Clone.wasm.br",
       "headers": [
         {
           "key": "Content-Encoding",
@@ -27,7 +27,7 @@
       ]
     },
     {
-      "source": "/Build/Game.framework.js.br",
+      "source": "/Build/Agar-Clone.framework.js.br",
       "headers": [
         {
           "key": "Content-Encoding",
