@@ -31,6 +31,10 @@
         case "Facebook":
           endindex = currentURL.indexOf("&data_access_expiration_time");
           break;
+        case "Zalo" :
+          startIndex = currentURL.indexOf("code=") + "code=".length;
+          endindex = currentURL.indexOf("&state");
+          break;
         case "Twitch":
           endindex = currentURL.indexOf("&scope");
           break;
