@@ -1,23 +1,59 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | IO</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <link rel="manifest" href="manifest.webmanifest">
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Agar Clone</title>
+    <meta
+      name="description"
+      content="Agar Clone is a multiplayer action game where players try to eat other players and grow their own cells. Play for free now!"
+    />
+    <meta
+      name="keywords"
+      content="Agar Clone, agar clone, agar.io clone, agar clone vn, agar clone id, thecolors, thecolors agar, agar color, AGAR, agar, action, game, cells, free"
+    />
+    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
+    <link rel="stylesheet" href="TemplateData/style.css" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.0/axios.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.applixir.com/applixir.sdk3.0m.js"
+    ></script>
+    <style>
+      #applixir_vanishing_div {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+      }
+    </style>
   </head>
   <body>
+    <script type="text/javascript">
+      function adStatusCallback(status) {
+        instance.SendMessage("User", "Set_Notification_ads", status);
+      }
+    </script>
+    <div id="applixir_vanishing_div" hidden>
+      <iframe id="applixir_parent" allow="autoplay"></iframe>
+    </div>
     <div id="unity-container">
-      <canvas id="unity-canvas" width=1920 height=1080 tabindex="-1"></canvas>
+      <canvas
+        id="unity-canvas"
+        width="1920"
+        height="1080"
+        tabindex="-1"
+      ></canvas>
       <div id="unity-loading-bar">
         <div id="unity-logo"></div>
         <div id="unity-progress-bar-empty">
           <div id="unity-progress-bar-full"></div>
         </div>
       </div>
-      <div id="unity-warning"> </div>
+      <div id="unity-warning"></div>
     </div>
     <script>
       window.addEventListener("load", function () {
@@ -40,15 +76,18 @@
       // user.
       function unityShowBanner(msg, type) {
         function updateBannerVisibility() {
-          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
+          warningBanner.style.display = warningBanner.children.length
+            ? "block"
+            : "none";
         }
-        var div = document.createElement('div');
+        var div = document.createElement("div");
         div.innerHTML = msg;
         warningBanner.appendChild(div);
-        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        if (type == "error") div.style = "background: red; padding: 10px;";
         else {
-          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-          setTimeout(function() {
+          if (type == "warning")
+            div.style = "background: yellow; padding: 10px;";
+          setTimeout(function () {
             warningBanner.removeChild(div);
             updateBannerVisibility();
           }, 5000);
@@ -78,10 +117,11 @@
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
-        var meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-        document.getElementsByTagName('head')[0].appendChild(meta);
+        var meta = document.createElement("meta");
+        meta.name = "viewport";
+        meta.content =
+          "width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes";
+        document.getElementsByTagName("head")[0].appendChild(meta);
       }
 
       loadingBar.style.display = "block";
@@ -89,13 +129,37 @@
       var script = document.createElement("script");
       script.src = loaderUrl;
       script.onload = () => {
+        window.addEventListener("message", function (event) {
+          var receivedMessage = event.data;
+          if (event.origin === "https://agar.id.vn") {
+            var code = decodeURIComponent(receivedMessage.split(" ")[1]);
+            instance.SendMessage(
+              "GameManager",
+              "Set_" + receivedMessage.split(" ")[0],
+              code
+            );
+          } else if (event.origin.includes("xsolla.com")) {
+            if (JSON.parse(receivedMessage).command == "order-status") {
+              instance.SendMessage(
+                "GameManager",
+                "Set_money",
+                JSON.parse(receivedMessage).data.user_id +
+                  " " +
+                  JSON.parse(receivedMessage).data.items[0].sku
+              );
+            }
+          }
+        });
         createUnityInstance(canvas, config, (progress) => {
           progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-          loadingBar.style.display = "none";
-        }).catch((message) => {
-          alert(message);
-        });
+        })
+          .then((unityInstance) => {
+            loadingBar.style.display = "none";
+            instance = unityInstance;
+          })
+          .catch((message) => {
+            alert(message);
+          });
       };
       document.body.appendChild(script);
     </script>
